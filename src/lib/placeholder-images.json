@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "seminar-hall-1",
+      "description": "Interior of a modern seminar hall with comfortable seating",
+      "imageUrl": "https://images.unsplash.com/photo-1643580018337-5af73fe3c21a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzZW1pbmFyJTIwaGFsbHxlbnwwfHx8fDE3NjA3NjU4NTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "seminar hall"
+    },
+    {
+      "id": "seminar-hall-2",
+      "description": "Side view of a lecture hall with tiered seating and wooden accents",
+      "imageUrl": "https://images.unsplash.com/photo-1640416639872-93aabd8d91d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxsZWN0dXJlJTIwaGFsbHxlbnwwfHx8fDE3NjA3NTU5MDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "lecture hall"
+    },
+    {
+      "id": "seminar-hall-3",
+      "description": "Spacious auditorium with a large projection screen and stage",
+      "imageUrl": "https://images.unsplash.com/photo-1751823886813-0cfc86cb9478?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhdWRpdG9yaXVtJTIwc2NyZWVufGVufDB8fHx8MTc2MDc2NTg1OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "auditorium screen"
+    },
+    {
+      "id": "seminar-hall-4",
+      "description": "Conference room setup for a professional presentation",
+      "imageUrl": "https://images.unsplash.com/photo-1503423571797-2d2bb372094a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y29uZmVyZW5jZSUyMHJvb218ZW58MHx8fHwxNzYwNzUzNzgyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "conference room"
+    }
+  ]
 }
