@@ -17,8 +17,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { CheckCircle, Clock, XCircle, Hourglass, Calendar, Building2 } from "lucide-react";
+import { CheckCircle, Clock, XCircle, Hourglass, Calendar, Building2, Check, X } from "lucide-react";
 import { format } from "date-fns";
+import { Button } from "@/components/ui/button";
 
 const statusConfig = {
   Approved: {
@@ -60,7 +61,8 @@ export default function BookingsPage() {
                 <TableHead className="hidden md:table-cell">Hall</TableHead>
                 <TableHead className="hidden sm:table-cell">Date</TableHead>
                 <TableHead className="hidden sm:table-cell">Time</TableHead>
-                <TableHead className="text-right">Status</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -78,11 +80,23 @@ export default function BookingsPage() {
                     <TableCell className="hidden md:table-cell">{hall?.name}</TableCell>
                     <TableCell className="hidden sm:table-cell">{format(booking.date, 'MMM dd, yyyy')}</TableCell>
                     <TableCell className="hidden sm:table-cell">{booking.startTime} - {booking.endTime}</TableCell>
-                    <TableCell className="text-right">
+                    <TableCell>
                        <Badge className={cn("flex items-center justify-center gap-1.5", statusInfo.badgeClass)}>
                         {statusInfo.icon}
                         {booking.status}
                       </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {booking.status === 'Pending' ? (
+                        <div className="flex gap-2 justify-end">
+                          <Button variant="outline" size="sm" className="bg-green-500 hover:bg-green-600 text-white">
+                            <Check className="size-4 mr-1" /> Approve
+                          </Button>
+                          <Button variant="outline" size="sm" className="bg-red-500 hover:bg-red-600 text-white">
+                            <X className="size-4 mr-1" /> Reject
+                          </Button>
+                        </div>
+                      ) : null}
                     </TableCell>
                   </TableRow>
                 )
