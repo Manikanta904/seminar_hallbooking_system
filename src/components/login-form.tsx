@@ -35,7 +35,7 @@ const formSchema = z.object({
   club: z.string().optional(),
 });
 
-const roleDetails = {
+const roleDetails: Record<UserRole, { icon: React.ElementType; title: string }> = {
   Admin: { icon: KeyRound, title: "Admin Login" },
   Supervisor: { icon: KeyRound, title: "Supervisor Login" },
   HOD: { icon: Building, title: "HOD Login" },
