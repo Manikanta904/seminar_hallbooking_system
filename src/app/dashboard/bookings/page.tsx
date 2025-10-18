@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { mockBookings, mockHalls } from "@/lib/data";
-import type { Booking } from "@/lib/types";
+import type { Booking, Hall } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -18,10 +18,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { CheckCircle, Clock, XCircle, Hourglass, Calendar, Building2, Check, X } from "lucide-react";
+import { CheckCircle, Clock, XCircle, Hourglass, Calendar, Building2, Check, X, Download } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const statusConfig = {
   Approved: {
@@ -42,6 +44,50 @@ const statusConfig = {
   },
 };
 
+const BookingConfirmationPDF = ({ booking, hall }: { booking: Booking; hall: Hall | undefined }) => {
+  if (!hall) return null;
+
+  return (
+    <div id={`pdf-${booking.id}`} className="p-4 bg-white text-black text-sm font-sans" style={{ width: '595px', position: 'absolute', left: '-9999px', zIndex: -1 }}>
+        <div className="border-b-2 border-gray-200 pb-4 mb-4">
+            <h1 className="text-3xl font-bold text-gray-800">Hallway Booking Confirmation</h1>
+            <p className="text-gray-500">Seminar Hall Booking System</p>
+        </div>
+        <h2 className="text-xl font-semibold mb-4 text-gray-700">Booking Details (ID: {booking.id})</h2>
+        <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+            <div>
+                <p className="font-bold text-gray-600">Event Name</p>
+                <p>{booking.eventName}</p>
+            </div>
+            <div>
+                <p className="font-bold text-gray-600">Hall Name</p>
+                <p>{hall.name}</p>
+            </div>
+            <div>
+                <p className="font-bold text-gray-600">Date</p>
+                <p>{format(booking.date, 'MMMM dd, yyyy')}</p>
+            </div>
+            <div>
+                <p className="font-bold text-gray-600">Time</p>
+                <p>{booking.startTime} - {booking.endTime}</p>
+            </div>
+            <div className="col-span-2">
+                <p className="font-bold text-gray-600">Event Description</p>
+                <p>{booking.eventDescription}</p>
+            </div>
+             <div className="col-span-2">
+                <p className="font-bold text-gray-600">Status</p>
+                <p className="text-green-600 font-semibold">{booking.status}</p>
+            </div>
+        </div>
+        <div className="mt-8 pt-4 border-t-2 border-gray-200 text-center text-xs text-gray-400">
+            <p>&copy; {new Date().getFullYear()} Hallway. All rights reserved.</p>
+        </div>
+    </div>
+  );
+};
+
+
 export default function BookingsPage() {
   const [bookings, setBookings] = useState<Booking[]>(mockBookings);
   const { toast } = useToast();
@@ -56,6 +102,30 @@ export default function BookingsPage() {
       title: `Booking ${newStatus}`,
       description: `The booking request has been successfully ${newStatus.toLowerCase()}.`,
     });
+  };
+
+  const handleDownloadPdf = (bookingId: string) => {
+    const input = document.getElementById(`pdf-${bookingId}`);
+    if (input) {
+      html2canvas(input, { scale: 2 })
+        .then((canvas) => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = pdf.internal.pageSize.getHeight();
+          const imgWidth = canvas.width;
+          const imgHeight = canvas.height;
+          const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+          const imgX = (pdfWidth - imgWidth * ratio) / 2;
+          const imgY = 15;
+          pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+          pdf.save(`booking-confirmation-${bookingId}.pdf`);
+          toast({
+            title: "PDF Downloaded",
+            description: "Booking confirmation has been downloaded.",
+          });
+        });
+    }
   };
 
   return (
@@ -123,6 +193,18 @@ export default function BookingsPage() {
                             <X className="size-4 mr-1" /> Reject
                           </Button>
                         </div>
+                      ) : booking.status === 'Approved' ? (
+                        <>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleDownloadPdf(booking.id)}
+                          >
+                            <Download className="size-4 mr-1" />
+                            PDF
+                          </Button>
+                          <BookingConfirmationPDF booking={booking} hall={hall} />
+                        </>
                       ) : null}
                     </TableCell>
                   </TableRow>
