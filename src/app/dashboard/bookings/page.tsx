@@ -1,12 +1,13 @@
+
+"use client";
+
+import { useState } from "react";
 import { mockBookings, mockHalls } from "@/lib/data";
 import type { Booking } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Table,
@@ -20,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { CheckCircle, Clock, XCircle, Hourglass, Calendar, Building2, Check, X } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 const statusConfig = {
   Approved: {
@@ -41,6 +43,21 @@ const statusConfig = {
 };
 
 export default function BookingsPage() {
+  const [bookings, setBookings] = useState<Booking[]>(mockBookings);
+  const { toast } = useToast();
+
+  const handleBookingAction = (bookingId: string, newStatus: 'Approved' | 'Rejected') => {
+    setBookings(currentBookings => 
+      currentBookings.map(booking => 
+        booking.id === bookingId ? { ...booking, status: newStatus } : booking
+      )
+    );
+    toast({
+      title: `Booking ${newStatus}`,
+      description: `The booking request has been successfully ${newStatus.toLowerCase()}.`,
+    });
+  };
+
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
@@ -66,7 +83,7 @@ export default function BookingsPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {mockBookings.map((booking) => {
+              {bookings.map((booking) => {
                 const hall = mockHalls.find(h => h.id === booking.hallId);
                 const statusInfo = statusConfig[booking.status];
                 return (
@@ -89,10 +106,20 @@ export default function BookingsPage() {
                     <TableCell className="text-right">
                       {booking.status === 'Pending' ? (
                         <div className="flex gap-2 justify-end">
-                          <Button variant="outline" size="sm" className="bg-green-500 hover:bg-green-600 text-white">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="bg-green-500 hover:bg-green-600 text-white"
+                            onClick={() => handleBookingAction(booking.id, 'Approved')}
+                          >
                             <Check className="size-4 mr-1" /> Approve
                           </Button>
-                          <Button variant="outline" size="sm" className="bg-red-500 hover:bg-red-600 text-white">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="bg-red-500 hover:bg-red-600 text-white"
+                            onClick={() => handleBookingAction(booking.id, 'Rejected')}
+                          >
                             <X className="size-4 mr-1" /> Reject
                           </Button>
                         </div>
