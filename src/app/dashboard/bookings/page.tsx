@@ -48,7 +48,7 @@ const BookingConfirmationPDF = ({ booking, hall }: { booking: Booking; hall: Hal
   if (!hall) return null;
 
   return (
-    <div id={`pdf-${booking.id}`} className="p-4 bg-white text-black text-sm font-sans" style={{ width: '595px', position: 'absolute', left: '-9999px', zIndex: -1 }}>
+    <div id={`pdf-content-${booking.id}`} className="p-4 bg-white text-black text-sm font-sans" style={{ width: '595px', position: 'absolute', left: '-9999px', zIndex: -1, top: 0 }}>
         <div className="border-b-2 border-gray-200 pb-4 mb-4">
             <h1 className="text-3xl font-bold text-gray-800">Hallway Booking Confirmation</h1>
             <p className="text-gray-500">Seminar Hall Booking System</p>
@@ -90,6 +90,7 @@ const BookingConfirmationPDF = ({ booking, hall }: { booking: Booking; hall: Hal
 
 export default function BookingsPage() {
   const [bookings, setBookings] = useState<Booking[]>(mockBookings);
+  const [pdfToRender, setPdfToRender] = useState<{booking: Booking, hall: Hall | undefined} | null>(null);
   const { toast } = useToast();
 
   const handleBookingAction = (bookingId: string, newStatus: 'Approved' | 'Rejected') => {
@@ -104,29 +105,41 @@ export default function BookingsPage() {
     });
   };
 
-  const handleDownloadPdf = (bookingId: string) => {
-    const input = document.getElementById(`pdf-${bookingId}`);
-    if (input) {
-      html2canvas(input, { scale: 2 })
-        .then((canvas) => {
-          const imgData = canvas.toDataURL('image/png');
-          const pdf = new jsPDF('p', 'mm', 'a4');
-          const pdfWidth = pdf.internal.pageSize.getWidth();
-          const pdfHeight = pdf.internal.pageSize.getHeight();
-          const imgWidth = canvas.width;
-          const imgHeight = canvas.height;
-          const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-          const imgX = (pdfWidth - imgWidth * ratio) / 2;
-          const imgY = 15;
-          pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
-          pdf.save(`booking-confirmation-${bookingId}.pdf`);
-          toast({
-            title: "PDF Downloaded",
-            description: "Booking confirmation has been downloaded.",
-          });
-        });
-    }
+  const handleDownloadPdf = (booking: Booking) => {
+    const hall = mockHalls.find(h => h.id === booking.hallId);
+    setPdfToRender({ booking, hall });
   };
+
+  React.useEffect(() => {
+    if (pdfToRender) {
+      const { booking, hall } = pdfToRender;
+      const input = document.getElementById(`pdf-content-${booking.id}`);
+
+      if (input && hall) {
+        html2canvas(input, { scale: 2 })
+          .then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+            const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+            const imgX = (pdfWidth - imgWidth * ratio) / 2;
+            const imgY = 15;
+            pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+            pdf.save(`booking-confirmation-${booking.id}.pdf`);
+            toast({
+              title: "PDF Downloaded",
+              description: "Booking confirmation has been downloaded.",
+            });
+          })
+          .finally(() => {
+            setPdfToRender(null); // Clean up after download
+          });
+      }
+    }
+  }, [pdfToRender, toast]);
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -138,6 +151,8 @@ export default function BookingsPage() {
       <p className="text-muted-foreground">
         Here is a list of your seminar hall booking requests.
       </p>
+
+      {pdfToRender && <BookingConfirmationPDF booking={pdfToRender.booking} hall={pdfToRender.hall} />}
 
       <Card>
         <CardContent className="p-0">
@@ -194,17 +209,14 @@ export default function BookingsPage() {
                           </Button>
                         </div>
                       ) : booking.status === 'Approved' ? (
-                        <>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleDownloadPdf(booking.id)}
-                          >
-                            <Download className="size-4 mr-1" />
-                            PDF
-                          </Button>
-                          <BookingConfirmationPDF booking={booking} hall={hall} />
-                        </>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDownloadPdf(booking)}
+                        >
+                          <Download className="size-4 mr-1" />
+                          PDF
+                        </Button>
                       ) : null}
                     </TableCell>
                   </TableRow>
