@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import * as React from "react";
 import { mockBookings, mockHalls } from "@/lib/data";
 import type { Booking, Hall } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
