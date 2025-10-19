@@ -16,7 +16,7 @@ import {
 import { UserNav } from "@/components/user-nav";
 
 const links = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/dashboard", label: "hi", icon: LayoutDashboard },
   { href: "/dashboard/bookings", label: "My Bookings", icon: CalendarDays },
 ];
 
