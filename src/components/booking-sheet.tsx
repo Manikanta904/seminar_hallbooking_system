@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -70,6 +71,12 @@ export function BookingSheet({ hall, children }: { hall: Hall, children: React.R
   const { toast } = useToast();
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(bookingFormSchema),
+    defaultValues: {
+      eventName: "",
+      eventDescription: "",
+      startTime: "",
+      endTime: "",
+    },
   });
 
   function onSubmit(data: BookingFormValues) {
