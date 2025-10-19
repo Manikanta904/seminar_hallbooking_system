@@ -65,7 +65,7 @@ export function LoginForm({ role }: { role: UserRole }) {
     setTimeout(() => router.push("/dashboard"), 1000);
   }
 
-  const { icon: Icon, title } = roleDetails[role] || roleDetails.Admin;
+  const { icon: Icon, title } = roleDetails[role] ?? roleDetails.Admin;
 
   return (
     <>
