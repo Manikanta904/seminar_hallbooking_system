@@ -1,116 +1,118 @@
-Seminar Hall Booking System
+# 🎓 Seminar Hall Booking System  
+**KKR & KSR INSTITUTE OF TECHNOLOGY & SCIENCES**
 
-KKR & KSR Institute of Technology & Sciences
+A smart and efficient system to manage seminar hall bookings within the college, providing real-time availability, authentication-based access, and automated approval workflows — all built with **Firebase Studio** and modern web technologies.
 
-A smart and automated Seminar Hall Booking System designed to streamline the process of reserving seminar halls across departments with real-time availability, role-based authentication, and AI-assisted conflict resolution.
+---
 
-🚀 Live Project
+## 🚀 Project Overview
 
-🔗 Live Demo
+The **Seminar Hall Booking System** is designed to streamline the process of booking seminar halls across different departments.  
+It allows authenticated users (Admins, Supervisors, HODs, TPO Cell, College Management, and Clubs) to book halls efficiently while avoiding scheduling conflicts using a priority-based system.
 
-📘 Project Overview
-🔹 Problem Statement
+---
 
-In colleges, multiple events—seminars, workshops, placement drives, and meetings—occur daily in seminar halls. Managing these hall bookings manually leads to conflicts, miscommunication, and scheduling overlaps.
+## 🧩 Features
 
-🔹 Solution
+- **🔐 User Authentication** — Secure login for different roles:
+  - Admins, Supervisors, HODs (CSE, CSE-AIML, CSD, IT, ECE, EEE)
+  - TPO Cell, College Management
+  - Clubs: E-Cell, NSS, NCC
 
-This project introduces a real-time web-based seminar hall booking system that allows authorized users (HODs, TPO, College Management, Clubs, etc.) to check hall availability, request bookings, and get automated approvals.
-The system uses Firebase backend and AI-based logic for conflict resolution and intelligent suggestions.
+- **🏢 Real-time Hall Availability**
+  - Displays real-time status of halls:
+    - CV Raman Hall  
+    - Newton Hall  
+    - Abdul Kalam Hall  
+    - Visvesvaraya Hall
 
-🧩 Key Features
+- **📝 Booking Request Submission**
+  - Authenticated users can request bookings with event details.
 
-User Authentication — Secure access for Admins, Supervisors, HODs (CSE, CSE-AIML, CSD, IT, ECE, EEE), TPO, Management, and Clubs (E-Cell, NSS, NCC).
+- **⚖️ Priority-Based Conflict Resolution**
+  - Hierarchy: **TPO > College Management > HODs > Clubs**
+  - If a clash occurs, an **AI-assisted suggestion tool** recommends alternate halls or times based on user priority and event details.
 
-Real-time Hall Availability — View instant availability of:
+- **✅ Approval Workflow**
+  - Requests are routed to College Management for final approval.
 
-CV Raman Hall
+- **📄 Automated Invoice Generation**
+  - Generates a downloadable PDF with hall details, event info, and digital signatures (Principal, Management).
 
-Newton Hall
+- **🖥️ Admin Dashboard**
+  - Manage users, halls, booking requests, and conflict priorities efficiently.
 
-Abdul Kalam Hall
+---
 
-Visvesvaraya Hall
+## 🎨 Design & UI
 
-Booking Request System — Submit hall booking requests with event details.
+- **Framework:** Next.js (TypeScript) + Tailwind CSS  
+- **Fonts:** Space Grotesk (headings) & Inter (body text)  
+- **Responsive Layout:** Works seamlessly across desktop, tablet, and mobile.  
+- **Animations:** Smooth transitions for booking confirmations and dashboard interactions.  
 
-Priority-Based Conflict Resolution — Automated AI logic prioritizes bookings:
+---
 
-TPO > College Management > HODs > Clubs
+## 🧠 AI Integration
 
-Approval Workflow — Requests are routed to college management for review.
+Integrated with **Gemini / Genkit AI** tools to analyze booking requests and assist in conflict resolution through intelligent suggestions.
 
-Admin Dashboard — Manage halls, users, bookings, and system settings.
+---
 
-Responsive UI — Built for smooth access on desktop, tablet, and mobile.
+## 🛠️ Technologies Used
 
-🎨 Design System
+| Category | Technologies |
+|-----------|--------------|
+| Frontend | React, Next.js, Tailwind CSS, TypeScript |
+| Backend | Firebase Studio |
+| Database | Firestore |
+| Hosting | Firebase Hosting |
+| Authentication | Firebase Auth |
+| AI Tools | Gemini / Genkit |
+| Version Control | GitHub |
 
-UI Framework: Tailwind CSS + TypeScript + Next.js
+---
 
-Typography:
+## 👨‍💻 Team Members
 
-Headings: Space Grotesk
+| Name | Roll No | Department | Role | Email |
+|------|----------|-------------|------|--------|
+| **CHILAKALA MANIKANTA SAI ANURUDH** | 23JR1A4347 | CAI | Project Lead & Frontend Developer | manikantaanurudh904@gmail.com |
+| **EDULAMUDI MANOJ** | 23JR1A4348 | CAI | UI Designer & Firebase Integration | 23jr1a4348@gmail.com |
+| **INKOLLU CHANDRASEKHAR** | 23JR1A4357 | CAI | Backend & Firestore Database Developer | 23jr1a4357@gmail.com |
+| **KAKUMANU KARTHIKEYA** | 23JR1A4358 | CAI | Authentication & Admin Panel Developer | kakumanukarthikeya2@gmail.com |
+| **DASARI CHAITANYA SAI GANESH** | 23JR1A0559 | CSE | Deployment & Testing | 23jr1a0559@gmail.com |
+| **CHINTAREDDY AVIGNESH REDDY** | 24JR5A4304 | CAI | Documentation & QA | chinnulast8@gmail.com |
 
-Body: Inter
+---
 
-Theme: Light/Dark Mode
+## 🌐 Live Demo
 
-Icons: Lucide-React
+🔗 **[View Project Live](https://9000-firebase-studio-1760764589867.cluster-edb2jv34dnhjisxuq5m7l37ccy.cloudworkstations.dev)**  
 
-Animations: Framer Motion (for smooth transitions)
+---
 
-⚙️ Tech Stack
-Category	Technologies
-Frontend	TypeScript, Next.js, Tailwind CSS
-Backend	Firebase Authentication, Firestore Database
-AI	Gemini / Genkit (for conflict resolution)
-Hosting	Firebase Hosting
-Version Control	GitHub
-Design	Figma, ShadCN UI
-👩‍💻 Team Members
-Name	Roll No	Year	Branch	Role	Email
-Chilakala Manikanta Sai Anurudh	23JR1A4347	3rd Year	CAI	Team Lead / Full Stack Developer	manikantaanurudh904@gmail.com
+## 🗂️ GitHub Repository
 
-Edulamudi Manoj	23JR1A4348	3rd Year	CAI	Frontend Developer	23jr1a4348@gmail.com
+🔗 **[Seminar Hall Booking System – GitHub Repo](https://github.com/Manikanta904/seminar_hallbooking_system)**  
 
-Inkolu Chandrasekhar	23JR1A4357	3rd Year	CAI	Backend Developer	23jr1a4357@gmail.com
+---
 
-Kakumanu Karthikeya	23JR1A4358	3rd Year	CAI	Firebase Integrator / Tester	kakumanukarthikeya2@gmail.com
+## 📘 Documentation
 
-Dasari Chaitanya Sai Ganesh	23JR1A0559	3rd Year	CSE	UI/UX Designer	23jr1a0559@gmail.com
+📄 **[View Documentation](https://docs.google.com/document/d/e/2PACX-1vT2QgjFK2FZXbjF8mYFyguckANa52fNOpE-cVMghOAdnzQFDH2WWjQF7x3opJl2zGGe2ylQdtNzT6zR/pub)**  
 
-Chintareddy Avignesh Reddy	24JR5A4304	3rd Year	CAI	Documentation & Presentation Lead	chinnulast8@gmail.com
-📊 Outcome & Impact
+---
 
-Eliminates manual hall booking confusion.
+## 🎤 Presentation
 
-Provides transparent, priority-based booking.
+🎯 **[Google Slides Presentation](https://docs.google.com/presentation/d/1Ai9BaiUC93W3WkHd6XdueRWsp69y6f0xYWzZq2n4uk0/edit?usp=sharing)**  
 
-Enables real-time monitoring and data-driven management.
+---
 
-Saves administrative time and reduces event clashes.
+## ⚙️ How to Run the Project
 
-🔗 Project Links
-
-📘 Documentation Link
-
-💻 GitHub Repository
-
-🚀 Live Demo
-
-🎤 Presentation Link
-
-🏆 Future Enhancements
-
-Add QR code integration for event verification and check-in.
-
-Enable automated email/SMS notifications for booking status.
-
-Include hall maintenance tracking and report generation.
-
-Integrate college calendar sync (Google Calendar / Outlook).
-
-📜 License
-
-This project is developed for educational purposes under KKR & KSR Institute of Technology & Sciences.
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/Manikanta904/seminar_hallbooking_system.git
+   cd seminar_hallbooking_system
